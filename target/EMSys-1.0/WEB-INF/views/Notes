@@ -1,0 +1,37 @@
+Colors:
+
+
+Green Palate: #b2c4aa
+Red Palate: #c4aab2
+Blue Palate: #6896ff
+Orange Palate: #FF8668
+
+Darker Palates:
+Green: #89a57d
+Red: #a57d89
+Blue: ##7d89a5
+
+==============================
+
+
+
+Problem #1:
+    POST by AJAX
+
+    pass event in eventDAO.getAll(event);[if not null]
+    set value=""; post method note needed?
+
+Solution:
+    Changed the line:
+        return "redirect:/";
+    to
+        return "index";
+    in the default controller servlet /searchEvent
+     
+Redirecting successful, make search engine results respectively.
+
+
+
+
+==============================
+#Make separate modals for individual invitation sending and mas invitation sending for populating modal loop hole
