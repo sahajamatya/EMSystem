@@ -239,7 +239,7 @@
                         <span class="glyphicon glyphicon-plus-sign"></span> Add Contact
                     </button>
                 </span>
-                <span data-toggle="modal" data-target="#mailModal">
+                <span data-toggle="modal" data-target="#mailMultiModal">
                     <button class="btn btn-sm" style="background-color:#b2c4aa;color:white" data-toggle="tooltip" title="Send Invitations">
                         <span class="glyphicon glyphicon-envelope"></span> Send Invitations
                     </button>

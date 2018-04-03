@@ -38,7 +38,12 @@
                             + "\" data-event-estGuests=\"" + e.estGuests
                             + "\" data-event-budget=\"" + e.budget
                             + "\" data-toggle=\"modal\" data-target=\"#editEventModal\"><button class=\"btn btn-xs\" style=\"background-color:#b2c4aa;color:white\" data-toggle=\"tooltip\" title=\"Edit\"><span class=\"glyphicon glyphicon-pencil\"></span></button></span>"
-                            + " <span data-toggle=\"modal\" data-target=\"#deleteEventModal\"><button class=\"btn btn-xs\" style=\"background-color:#FF8668;color:white\" data-toggle=\"tooltip\" title=\"Delete\"><span class=\"glyphicon glyphicon-trash\"></span></button></span>"
+
+                            + " <span class=\"eventDeleteBtn\" data-event-name=\"" + e.name
+                            + "\" data-event-type=\"" + e.type
+                            + "\" data-event-venue=\"" + e.venue
+                            + "\" data-event-address=\"" + e.address
+                            + "\" data-toggle=\"modal\" data-target=\"#deleteEventModal\"><button class=\"btn btn-xs\" style=\"background-color:#FF8668;color:white\" data-toggle=\"tooltip\" title=\"Delete\"><span class=\"glyphicon glyphicon-trash\"></span></button></span>"
                             + " <span data-toggle=\"modal\" data-target=\"#stallModal\"><button class=\"btn btn-xs\" style=\"background-color:#7d89a5;color:white\" data-toggle=\"tooltip\" title=\"Add Stalls\"><span class=\"glyphicon glyphicon-home\"></span> Stalls</button><span>").attr('style', 'text-align:center').appendTo($tr);
                     $tr.appendTo($table);
                 });
@@ -53,6 +58,13 @@
                     $("#editEventModal #eventEndDate").val($(this).attr('data-event-endDate'));
                     $("#editEventModal #eventStartTime").val($(this).attr('data-event-startTime'));
                     $("#editEventModal #eventEndTime").val($(this).attr('data-event-endTime'));
+                });
+
+                $(".eventDeleteBtn").on('click', function () {
+                    $("#deleteEventModal .eventName").html($(this).attr('data-event-name'));
+                    $("#deleteEventModal .eventType").html($(this).attr('data-event-type'));
+                    $("#deleteEventModal .eventVenue").html($(this).attr('data-event-venue'));
+                    $("#deleteEventModal .eventAddress").html($(this).attr('data-event-address'));
                 });
             });
         }
@@ -126,7 +138,13 @@
                             + "\" data-contact-email=\"" + c.email
                             + "\" data-contact-organization=\"" + c.organization
                             + "\" data-toggle=\"modal\" data-target=\"#editContactModal\"><button class=\"btn btn-xs\" style=\"background-color:#b2c4aa;color:white\" data-toggle=\"tooltip\" title=\"Edit\"><span class=\"glyphicon glyphicon-pencil\"></span></button></span>"
-                            + " <span data-toggle=\"modal\" data-target=\"#deleteContactModal\"><button class=\"btn btn-xs\" style=\"background-color:#FF8668;color:white\" data-toggle=\"tooltip\" title=\"Delete\"><span class=\"glyphicon glyphicon-trash\"></span></button></span>"
+
+
+                            + " <span class=\"contactDeleteBtn\" data-contact-name=\"" + c.name
+                            + "\" data-contact-contact=\"" + c.contact
+                            + "\" data-contact-email=\"" + c.email
+                            + "\" data-contact-org=\"" + c.organization
+                            + "\" data-toggle=\"modal\" data-target=\"#deleteContactModal\"><button class=\"btn btn-xs\" style=\"background-color:#FF8668;color:white\" data-toggle=\"tooltip\" title=\"Delete\"><span class=\"glyphicon glyphicon-trash\"></span></button></span>"
                             + " <span class=\"contactMail\" data-contact-email=\"" + c.email + "\" data-toggle=\"modal\" data-target=\"#mailModal\"><button class=\"btn btn-xs\" style=\"background-color:#6896ff;color:white\" data-toggle=\"tooltip\" title=\"Send Invites\"><span class=\"glyphicon glyphicon-envelope\"></span></button></span>").attr('style', 'text-align:center').appendTo($tr);
                     $tr.appendTo($table);
                 });
@@ -136,6 +154,14 @@
                     $("#editContactModal #contactEmail").val($(this).attr('data-contact-email'));
                     $("#editContactModal #contactOrganization").val($(this).attr('data-contact-organization'));
                 });
+
+                $(".contactDeleteBtn").on('click', function () {
+                    $("#deleteContactModal #delName").val($(this).attr('data-contact-name'));
+                    $("#deleteContactModal #delContact").val($(this).attr('data-contact-contact'));
+                    $("#deleteContactModal #delEmail").val($(this).attr('data-contact-email'));
+                    $("#deleteContactModal #delOrg").val($(this).attr('data-contact-org'));
+                });
+
                 $(".contactMail").on('click', function () {
                     $("#to").val($(this).attr('data-contact-email'));
                 });
@@ -166,9 +192,29 @@
                     $("<td/>").html(ec.email).attr('style', 'text-align:center').appendTo($tr);
                     $("<td/>").html(ec.role).attr('style', 'text-align:center').appendTo($tr);
                     $("<td/>").html(ec.status).attr('style', 'text-align:center').appendTo($tr);
-                    $("<td/>").html("<span data-toggle=\"modal\" data-target=\"#editEventContactModal\"><button class=\"btn btn-xs\" style=\"background-color:#b2c4aa;color:white\" data-toggle=\"tooltip\" title=\"Edit\"><span class=\"glyphicon glyphicon-pencil\"></span></button></span>"
-                            + " <span data-toggle=\"modal\" data-target=\"#deleteEventContactModal\"><button class=\"btn btn-xs\" style=\"background-color:#FF8668;color:white\" data-toggle=\"tooltip\" title=\"Delete\"><span class=\"glyphicon glyphicon-trash\"></span></button></span>").attr('style', 'text-align:center').appendTo($tr);
+                    $("<td/>").html("<span class=\"eventContactEditBtn\" data-ec-name=\"" + ec.name
+                            + "\" data-ec-contact=\"" + ec.contact
+                            + "\" data-ec-email=\"" + ec.email
+                            + "\" data-ec-role=\"" + ec.role
+                            + "\" data-toggle=\"modal\" data-target=\"#editEventContactModal\"><button class=\"btn btn-xs\" style=\"background-color:#b2c4aa;color:white\" data-toggle=\"tooltip\" title=\"Edit\"><span class=\"glyphicon glyphicon-pencil\"></span></button></span>"
+
+                            + " <span class=\"eventContactDeleteBtn\" data-ec-name=\"" + ec.name
+                            + "\" data-ec-contact=\"" + ec.contact
+                            + "\" data-ec-email=\"" + ec.email
+                            + "\" data-ec-role=\"" + ec.role
+                            + "\" data-toggle=\"modal\" data-target=\"#deleteEventContactModal\"><button class=\"btn btn-xs\" style=\"background-color:#FF8668;color:white\" data-toggle=\"tooltip\" title=\"Delete\"><span class=\"glyphicon glyphicon-trash\"></span></button></span>").attr('style', 'text-align:center').appendTo($tr);
                     $tr.appendTo($table);
+                });
+                $(".eventContactEditBtn").on('click', function () {
+                    $("#editEventContactModal #eventContactName").val($(this).attr('data-ec-name'));
+                    $("#editEventContactModal #eventContactContact").val($(this).attr('data-ec-contact'));
+                    $("#editEventContactModal #eventContactEmail").val($(this).attr('data-ec-email'));
+                });
+                $(".eventContactDeleteBtn").on('click', function () {
+                    $("#deleteEventContactModal #delEcName").val($(this).attr('data-ec-name'));
+                    $("#deleteEventContactModal #delEcContact").val($(this).attr('data-ec-contact'));
+                    $("#deleteEventContactModal #delEcEmail").val($(this).attr('data-ec-email'));
+                    $("#deleteEventContactModal #delEcRole").val($(this).attr('data-ec-role'));
                 });
             });
         }
@@ -208,11 +254,6 @@
                     eventContactTable();
                     break;
             }
-        });
-
-        $(".hostEditBtn").on('click', function () {
-            alert("Test Works");
-//            $("#editEventHostModal").val($(this).attr('data-host-name'));
         });
 
         $("#hideHost").on('click', function () {
