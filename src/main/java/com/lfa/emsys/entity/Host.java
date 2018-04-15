@@ -129,10 +129,7 @@ public class Host implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "com.lfa.emsys.entity.Host[ id=" + id + " ]";
-    }
+    
     
     public String toJSON() {
         String json = "{\n";
@@ -141,8 +138,8 @@ public class Host implements Serializable {
         json += "\t\"contact\":\"" + contact + "\",\n";
         json += "\t\"email\":\"" + email + "\",\n";
         json += "\t\"address\":\"" + address + "\",\n";
-        json += "\t\"status\":\"" + status + "\"\n";
-        json += "\n}";
+        json += "\t\"status\":\"" + status + "\"";
+        json += "\n\t}";
         return json;
     }
 }

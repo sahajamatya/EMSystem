@@ -1,20 +1,18 @@
 Colors:
+    Green Palate: #b2c4aa
+    Red Palate: #c4aab2 
+    Blue Palate: #6896ff
+    Orange Palate: #FF8668
 
+        Darker Palates:
+        Green: #89a57d
+        Red: #a57d89
+        Blue: ##7d89a5
 
-Green Palate: #b2c4aa
-Red Palate: #c4aab2
-Blue Palate: #6896ff
-Orange Palate: #FF8668
-
-Darker Palates:
-Green: #89a57d
-Red: #a57d89
-Blue: ##7d89a5
-
-==============================
-
-
-
+            Stall D&D:
+                FD Red: #ff664d
+                GM Green: #3f7e31
+==========================================================================================================================
 Problem #1:
     POST by AJAX
 
@@ -28,10 +26,15 @@ Solution:
         return "index";
     in the default controller servlet /searchEvent
      
-Redirecting successful, make search engine results respectively.
-
-
-
-
-==============================
-#Make separate modals for individual invitation sending and mas invitation sending for populating modal loop hole
+#Redirecting successful, make search engine results respectively.
+==========================================================================================================================
+#Enter GENDER column for Contact and Event Contact entities respectively.
+==========================================================================================================================
+#Make separate modals for individual invitation sending and mass invitation sending for populating modal loop hole.
+==========================================================================================================================
+#Add Attraction Package entity mapping to eventJSON to populate editEventModal->AttractionPkgId.
+==========================================================================================================================
+#D&D Attraction Package selector.
+==========================================================================================================================
+#Make budgeting rigid instead of providing range.
+==========================================================================================================================

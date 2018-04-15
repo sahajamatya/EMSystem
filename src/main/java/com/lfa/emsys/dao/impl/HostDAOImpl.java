@@ -34,7 +34,10 @@ public class HostDAOImpl implements HostDAO{
 
     @Override
     public void insertOrUpdate(Host t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        trans = session.beginTransaction();
+        session.saveOrUpdate(t);
+        trans.commit();
     }
 
     @Override

@@ -1,7 +1,6 @@
 <%@include file="../shared/header.jsp"%>
-<h1 style="font-family: Georgia">Control Panel: <span style="color: #99C68E">EMSys <u>v.1.0</u></span></h1>
+<h1 style="font-family: Georgia">Control Panel: <span style="color: #99C68E">EMSys <u>v1.0</u></span></h1>
 <hr>
-
 <div class="panel panel-success">
     <div class="panel panel-heading" style="color:#25383C"><h4>Search Parameters</h4></div> 
     <div class="panel panel-body">
@@ -213,7 +212,6 @@
                     <th style="text-align: center">Host</th>
                     <th style="text-align: center">Dates</th>
                     <th style="text-align: center">Venue</th>
-                    <th style="text-align: center">Address</th>
                     <th style="text-align: center">Status</th>
                     <th style="text-align: center">Actions</th>
                 </tr>

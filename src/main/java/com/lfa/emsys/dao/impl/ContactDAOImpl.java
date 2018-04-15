@@ -34,17 +34,29 @@ public class ContactDAOImpl implements ContactDAO{
 
     @Override
     public void insertOrUpdate(Contact t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        trans = session.beginTransaction();
+        session.saveOrUpdate(t);
+        trans.commit();
     }
 
     @Override
     public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Contact contact = getById(id);
+        if(contact!=null){
+            session = sessionFactory.openSession();
+            trans = session.beginTransaction();
+            session.delete(contact);
+            trans.commit();
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Contact getById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        return (Contact)session.get(Contact.class, id);
     }
 
     @Override

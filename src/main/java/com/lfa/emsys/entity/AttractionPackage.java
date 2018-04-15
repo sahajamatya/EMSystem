@@ -100,9 +100,13 @@ public class AttractionPackage implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "com.lfa.emsys.entity.AttractionPackage[ id=" + id + " ]";
+    public String toJSON() {
+        String json = "{\n";
+        json += "\t\"id\":\"" + id + "\",\n";
+        json += "\t\"name\":\"" + name + "\",\n";
+        json += "\t\"status\":\"" + status + "\"";
+        json += "\n\t}";
+        return json;
     }
-    
+
 }

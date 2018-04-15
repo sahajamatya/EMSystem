@@ -34,17 +34,29 @@ public class EventContactDAOImpl implements EventContactDAO{
 
     @Override
     public void insertOrUpdate(EventContact t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        trans = session.beginTransaction();
+        session.saveOrUpdate(t);
+        trans.commit();
     }
 
     @Override
     public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EventContact ec = getById(id);
+        if(ec!=null){
+            session = sessionFactory.openSession();
+            trans = session.beginTransaction();
+            session.delete(ec);
+            trans.commit();
+            return true;
+        }
+        return false;
     }
 
     @Override
     public EventContact getById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        return (EventContact)session.get(EventContact.class, id);
     }
 
     @Override

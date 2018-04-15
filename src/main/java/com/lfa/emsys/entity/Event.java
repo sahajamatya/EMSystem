@@ -62,8 +62,8 @@ public class Event implements Serializable {
     private Integer estGuests;
     @Column(name = "status")
     private Boolean status;
-    @OneToMany(mappedBy = "eventId")
-    private List<EventContact> eventContactList;
+//    @OneToMany(mappedBy = "eventId")
+//    private List<EventContact> eventContactList;
     @JoinColumn(name = "host_id", referencedColumnName = "id")
     @ManyToOne
     private Host hostId;
@@ -174,13 +174,13 @@ public class Event implements Serializable {
         this.status = status;
     }
 
-    public List<EventContact> getEventContactList() {
-        return eventContactList;
-    }
-
-    public void setEventContactList(List<EventContact> eventContactList) {
-        this.eventContactList = eventContactList;
-    }
+//    public List<EventContact> getEventContactList() {
+//        return eventContactList;
+//    }
+//
+//    public void setEventContactList(List<EventContact> eventContactList) {
+//        this.eventContactList = eventContactList;
+//    }
 
     public Host getHostId() {
         return hostId;
@@ -218,11 +218,6 @@ public class Event implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "com.lfa.emsys.entity.Event[ id=" + id + " ]";
-    }
-    
     public String toJSON() {
         String json = "{\n";
         json += "\t\"id\":\"" + id + "\",\n";
@@ -237,7 +232,8 @@ public class Event implements Serializable {
         json += "\t\"budget\":\"" + budget + "\",\n";
         json += "\t\"estGuests\":\"" + estGuests + "\",\n";
         json += "\t\"status\":\"" + status + "\",\n";
-        json += "\t\"hostId\":\"" + hostId + "\"";
+        json += "\t\"attractionPkgId\":" + attractionPkgId.toJSON() + ",\n";
+        json += "\t\"hostId\":" + hostId.toJSON() ;
         json += "\n}";
         return json;
     }
