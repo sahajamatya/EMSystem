@@ -65,6 +65,7 @@
                     $("<td/>").html(e.venue + ",<br>" + e.address).attr('style', 'text-align:center').css('vertical-align', 'middle').appendTo($tr);
                     $("<td/>").html(e.status).attr('style', 'text-align:center').css('vertical-align', 'middle').appendTo($tr);
                     $("<td/>").html("<span class=\"eventEditBtn\" data-event-name=\"" + e.name
+                            + "\" data-event-id=\"" + e.id
                             + "\" data-event-type=\"" + e.type
                             + "\" data-event-startDate=\"" + e.startDate
                             + "\" data-event-endDate=\"" + e.endDate
@@ -74,7 +75,7 @@
                             + "\" data-event-address=\"" + e.address
                             + "\" data-event-estGuests=\"" + e.estGuests
                             + "\" data-event-budget=\"" + e.budget
-                            + "\" data-event-attractionPkg=\"" + e.attractionPkgId.id
+                            + "\" data-event-hostId=\"" + e.hostId.id
                             + "\" data-toggle=\"modal\" data-target=\"#editEventModal\"><button class=\"btn btn-xs\" style=\"background-color:#b2c4aa;color:white\" data-toggle=\"tooltip\" title=\"Edit\"><span class=\"glyphicon glyphicon-pencil\"></span></button></span>"
 
                             + " <span class=\"eventDeleteBtn\" data-event-name=\"" + e.name
@@ -82,6 +83,8 @@
                             + "\" data-event-venue=\"" + e.venue
                             + "\" data-event-address=\"" + e.address
                             + "\" data-event-hostName=\"" + e.hostId.name
+                            + "\" data-event-id=\"" + e.id
+                            + "\" data-event-hostId=\"" + e.hostId.id
                             + "\" data-toggle=\"modal\" data-target=\"#deleteEventModal\"><button class=\"btn btn-xs\" style=\"background-color:#FF8668;color:white\" data-toggle=\"tooltip\" title=\"Delete\"><span class=\"glyphicon glyphicon-trash\"></span></button></span>"
                             + " <span data-toggle=\"modal\" data-target=\"#stallModal\"><button class=\"btn btn-xs\" style=\"background-color:#7d89a5;color:white\" data-toggle=\"tooltip\" title=\"Add Stalls\"><span class=\"glyphicon glyphicon-home\"></span> Stalls</button></span>"
 
@@ -112,6 +115,7 @@
                     $("#dateExpand #endTimeEx").val($(this).attr("data-event-endTime"));
                 });
                 $(".eventEditBtn").on('click', function () {
+                    $("#editEventModal #eventId").val($(this).attr('data-event-id'));
                     $("#editEventModal #eventType").val($(this).attr('data-event-type'));
                     $("#editEventModal #eventName").val($(this).attr('data-event-name'));
                     $("#editEventModal #eventVenue").val($(this).attr('data-event-venue'));
@@ -122,7 +126,7 @@
                     $("#editEventModal #eventEndDate").val($(this).attr('data-event-endDate'));
                     $("#editEventModal #eventStartTime").val($(this).attr('data-event-startTime'));
                     $("#editEventModal #eventEndTime").val($(this).attr('data-event-endTime'));
-                    $("#editEventModal #eventAttractionPkgId").val($(this).attr('data-event-attractionPkg'));
+                    $("#editEventModal #eventHostId").val($(this).attr('data-event-hostId'));
                 });
                 $(".eventDeleteBtn").on('click', function () {
                     $("#deleteEventModal #eventName").val($(this).attr('data-event-name'));
@@ -130,6 +134,8 @@
                     $("#deleteEventModal #eventVenue").val($(this).attr('data-event-venue'));
                     $("#deleteEventModal #eventAddress").val($(this).attr('data-event-address'));
                     $("#deleteEventModal #eventHostName").val($(this).attr('data-event-hostName'));
+                    $("#deleteEventModal #eventId").val($(this).attr('data-event-id'));
+                    $("#deleteEventModal #hostId").val($(this).attr('data-event-hostId'));
                 });
                 $(".eventMailBtn").on('click', function () {
                     $("#eventMailMultiModal #eventNameMail").html($(this).attr("data-event-name"));

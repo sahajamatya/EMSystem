@@ -43,8 +43,8 @@ public class Host implements Serializable {
     private String address;
     @Column(name = "status")
     private Boolean status;
-    @OneToMany(mappedBy = "hostId")
-    private List<Event> eventList;
+//    @OneToMany(mappedBy = "hostId")
+//    private List<Event> eventList;
 
     public Host() {
     }
@@ -101,13 +101,13 @@ public class Host implements Serializable {
         this.status = status;
     }
 
-    public List<Event> getEventList() {
-        return eventList;
-    }
-
-    public void setEventList(List<Event> eventList) {
-        this.eventList = eventList;
-    }
+//    public List<Event> getEventList() {
+//        return eventList;
+//    }
+//
+//    public void setEventList(List<Event> eventList) {
+//        this.eventList = eventList;
+//    }
 
     @Override
     public int hashCode() {
@@ -129,7 +129,10 @@ public class Host implements Serializable {
         return true;
     }
 
-    
+    public String toString(){
+        String host= name+" - "+ contact+ " - "+email+" - "+address+" - "+status+ "\nSTRING BUILDER IS WORKING!";
+        return host;
+    }
     
     public String toJSON() {
         String json = "{\n";

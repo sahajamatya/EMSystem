@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -43,6 +44,7 @@ public class Event implements Serializable {
     private String name;
     @Column(name = "start_date")
     @Temporal(javax.persistence.TemporalType.DATE)
+//    @DateTimeFormat(pattern = "mm/dd/yyyy")
     private Date startDate;
     @Column(name = "end_date")
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -57,7 +59,7 @@ public class Event implements Serializable {
     private String address;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "budget")
-    private Double budget;
+    private int budget;
     @Column(name = "est_guests")
     private Integer estGuests;
     @Column(name = "status")
@@ -67,9 +69,6 @@ public class Event implements Serializable {
     @JoinColumn(name = "host_id", referencedColumnName = "id")
     @ManyToOne
     private Host hostId;
-    @JoinColumn(name = "attraction_pkg_id", referencedColumnName = "id")
-    @ManyToOne
-    private AttractionPackage attractionPkgId;
 
     public Event() {
     }
@@ -150,11 +149,11 @@ public class Event implements Serializable {
         this.address = address;
     }
 
-    public Double getBudget() {
+    public int getBudget() {
         return budget;
     }
 
-    public void setBudget(Double budget) {
+    public void setBudget(int budget) {
         this.budget = budget;
     }
 
@@ -188,14 +187,6 @@ public class Event implements Serializable {
 
     public void setHostId(Host hostId) {
         this.hostId = hostId;
-    }
-
-    public AttractionPackage getAttractionPkgId() {
-        return attractionPkgId;
-    }
-
-    public void setAttractionPkgId(AttractionPackage attractionPkgId) {
-        this.attractionPkgId = attractionPkgId;
     }
 
     @Override
@@ -232,7 +223,6 @@ public class Event implements Serializable {
         json += "\t\"budget\":\"" + budget + "\",\n";
         json += "\t\"estGuests\":\"" + estGuests + "\",\n";
         json += "\t\"status\":\"" + status + "\",\n";
-        json += "\t\"attractionPkgId\":" + attractionPkgId.toJSON() + ",\n";
         json += "\t\"hostId\":" + hostId.toJSON() ;
         json += "\n}";
         return json;

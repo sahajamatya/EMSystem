@@ -42,12 +42,21 @@ public class HostDAOImpl implements HostDAO{
 
     @Override
     public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Host host = getById(id);
+        if(host!=null){
+            session = sessionFactory.openSession();
+            trans=session.beginTransaction();
+            session.delete(host);
+            trans.commit();
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Host getById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        return (Host)session.get(Host.class, id);
     }
 
     @Override

@@ -5,17 +5,18 @@
  */
 package com.lfa.emsys.controller;
 
-import com.lfa.emsys.dao.AttractionPackageDAO;
 import com.lfa.emsys.dao.ContactDAO;
 import com.lfa.emsys.dao.EventContactDAO;
 import com.lfa.emsys.dao.EventDAO;
 import com.lfa.emsys.dao.EventSearchDAO;
 import com.lfa.emsys.dao.HostDAO;
-import com.lfa.emsys.entity.AttractionPackage;
 import com.lfa.emsys.entity.Contact;
 import com.lfa.emsys.entity.Event;
 import com.lfa.emsys.entity.EventContact;
 import com.lfa.emsys.entity.Host;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -49,13 +50,9 @@ public class DefaultController {
     @Autowired
     private EventContactDAO eventContactDAO;
 
-    @Autowired
-    private AttractionPackageDAO attractionPkgDAO;
-
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("events", eventDAO.getAll());
-        model.addAttribute("ap", attractionPkgDAO.getAll());
         model.addAttribute("ec", eventContactDAO.getAll());
         return "index";
     }
@@ -73,7 +70,7 @@ public class DefaultController {
     }
 
     @RequestMapping(value = "/addEvent", method = RequestMethod.POST)
-    public String addEvent(Event event, @RequestParam("passHostName") String hostName,
+    public String addEvent(@RequestParam("passHostName") String hostName,
             @RequestParam("passHostContact") String hostContact,
             @RequestParam("passHostEmail") String hostEmail,
             @RequestParam("passHostAddress") String hostAddress,
@@ -81,15 +78,14 @@ public class DefaultController {
             //EVENT:
             @RequestParam("type") String eventType,
             @RequestParam("name") String eventName,
-            @RequestParam("startDate") Date startDate,
-            @RequestParam("endDate") Date endDate,
+            @RequestParam("startDate") String startDate,
+            @RequestParam("endDate") String endDate,
             @RequestParam("startTime") String startTime,
             @RequestParam("endTime") String endTime,
             @RequestParam("venue") String eventVenue,
             @RequestParam("address") String eventAddress,
-            @RequestParam("budget") double eventBudget,
+            @RequestParam("budget") int eventBudget,
             @RequestParam("estGuests") int eventEstGuests,
-            @RequestParam("attractionPkgId") AttractionPackage eventAttractionPkgId,
             @RequestParam("status") boolean eventStatus) {
         Host host = new Host();
         host.setName(hostName);
@@ -98,24 +94,87 @@ public class DefaultController {
         host.setAddress(hostAddress);
         host.setStatus(hostStatus);
         hostDAO.insertOrUpdate(host);
-        //EVENT:
+
+        //DATE PARSER
+        Date finalStartDate=null;
+        Date finalEndDate=null;
+        String startDateParser = startDate;
+        String endDateParser = endDate;
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try{
+        finalStartDate = format.parse(startDateParser);
+        finalEndDate = format.parse(endDateParser);
+        } catch(ParseException ex){
+            System.out.println(ex.getMessage());
+        }
         
-        //MAKE PRINT STATEMENTS AND CHECK WHAT'S MISSING
-        Event e = new Event();
-        e.setType(eventType);
-        e.setName(eventName);
-        e.setStartDate(startDate);
-        e.setEndDate(endDate);
-        e.setStartTime(startTime);
-        e.setEndTime(endTime);
-        e.setVenue(eventVenue); 
-        e.setAddress(eventAddress);
-        e.setBudget(eventBudget);
-        e.setEstGuests(eventEstGuests);
-        e.setAttractionPkgId(eventAttractionPkgId);
-        e.setHostId(host);
-        e.setStatus(eventStatus);
-        eventDAO.insertOrUpdate(e);
+        Event event = new Event();
+        event.setType(eventType);
+        event.setName(eventName);
+        event.setStartDate(finalStartDate);
+        event.setEndDate(finalEndDate);
+        event.setStartTime(startTime);
+        event.setEndTime(endTime);
+        event.setVenue(eventVenue);
+        event.setAddress(eventAddress);
+        event.setBudget(eventBudget);
+        event.setEstGuests(eventEstGuests);
+        event.setStatus(eventStatus);
+        event.setHostId(host);
+        eventDAO.insertOrUpdate(event);
+        return "redirect:/";
+    }
+    
+    @RequestMapping(value = "/editEvent", method = RequestMethod.POST)
+    public String editEvent(@RequestParam("id") int eventId,
+            @RequestParam("type") String eventType,
+            @RequestParam("name") String eventName,
+            @RequestParam("startDate") String startDate,
+            @RequestParam("endDate") String endDate,
+            @RequestParam("startTime") String startTime,
+            @RequestParam("endTime") String endTime,
+            @RequestParam("venue") String eventVenue,
+            @RequestParam("address") String eventAddress,
+            @RequestParam("budget") int eventBudget,
+            @RequestParam("estGuests") int eventEstGuests,
+            @RequestParam("hostId") int hostId,
+            @RequestParam("status") boolean eventStatus) {
+        
+        //DATE PARSER:
+        Date finalStartDate=null;
+        Date finalEndDate=null; 
+        String startDateParser = startDate;
+        String endDateParser = endDate;
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try{
+        finalStartDate = format.parse(startDateParser);
+        finalEndDate = format.parse(endDateParser);
+        } catch(ParseException ex){
+            System.out.println(ex.getMessage());
+        }
+        //EVENT MAPPER:
+        Event event = new Event();
+        event.setId(eventId);
+        event.setType(eventType);
+        event.setName(eventName);
+        event.setStartDate(finalStartDate);
+        event.setEndDate(finalEndDate);
+        event.setStartTime(startTime); 
+        event.setEndTime(endTime);
+        event.setVenue(eventVenue);
+        event.setAddress(eventAddress);
+        event.setBudget(eventBudget);
+        event.setEstGuests(eventEstGuests);
+        event.setStatus(eventStatus);
+        event.setHostId(hostDAO.getById(hostId));
+        eventDAO.insertOrUpdate(event);
+        return "redirect:/";
+    }
+    
+    @RequestMapping(value="/deleteEvent", method = RequestMethod.POST)
+    public String deleteEvent(@RequestParam("id") int eventId, @RequestParam("hostId") int hostId){
+        eventDAO.delete(eventId);
+        hostDAO.delete(hostId); 
         return "redirect:/";
     }
 
@@ -200,20 +259,6 @@ public class DefaultController {
                 output = ec.toJSON();
             } else {
                 output = output + ",\n" + ec.toJSON();
-            }
-        }
-        return "[" + output + "]";
-    }
-
-    @RequestMapping(value = "/attractionPkgJSON", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    @ResponseBody
-    public String attractionPkgJSON() {
-        String output = "";
-        for (AttractionPackage ap : attractionPkgDAO.getAll()) {
-            if (output.equals("")) {
-                output = ap.toJSON();
-            } else {
-                output = output + ",\n" + ap.toJSON();
             }
         }
         return "[" + output + "]";

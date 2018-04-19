@@ -62,11 +62,13 @@
                 <h2 class="modal-title" style="color:#a57d89; font-family: Georgia">Add an Event</h2>
             </div>
             <form method="post" action = "${pageContext.request.contextPath}/addEvent">
-                <input type="text" id="passHostName" name="passHostName"/>
-                <input type="text" id="passHostContact" name="passHostContact"/>
-                <input type="text" id="passHostEmail" name="passHostEmail"/>
-                <input type="text" id="passHostAddress" name="passHostAddress"/>
-                <input type="checkbox" id="passHostStatus" checked name="passHostStatus"/>
+                <div style="display:none">
+                    <input type="text" id="passHostName" name="passHostName"/>
+                    <input type="text" id="passHostContact" name="passHostContact"/>
+                    <input type="text" id="passHostEmail" name="passHostEmail"/>
+                    <input type="text" id="passHostAddress" name="passHostAddress"/>
+                    <input type="checkbox" id="passHostStatus" checked name="passHostStatus"/>
+                </div>
                 <div class="modal-body">
                     <h3 style="color:#a57d89; font-family: Georgia">Event Information</h3><br>
                     <table width="100%">
@@ -105,7 +107,7 @@
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                    <input maxlength="10" class="form-control" name="startDate" id="eventStartDate" type="text" placeholder="Start Date of Event" style="width:100%; display:inline-block;"/>
+                                    <input class="form-control" name="startDate" id="eventStartDate" type="date" placeholder="Start Date of Event" style="width:100%; display:inline-block;"/>
                                 </div>
                             </td>
                         </tr>
@@ -125,7 +127,7 @@
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                    <input maxlength="10" class="form-control" name="endDate" id="eventEndDate" type="text" placeholder="End Date of Event" style="width:100%; display:inline-block;"/>
+                                    <input class="form-control" name="endDate" id="eventEndDate" type="date" placeholder="End Date of Event" style="width:100%; display:inline-block;"/>
                                 </div>
                             </td>
                         </tr>
@@ -187,24 +189,6 @@
                             <td colspan="5">&nbsp;</td>
                         </tr>
                     </table>
-                    <table width="100%">
-                        <tr>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td><label>Attractions:</label></td>
-                        </tr>
-                        <tr>
-                            <td colspan="5">
-                                <select name="attractionPkgId" class="form-control" id="eventAttractionPkgId">
-                                    <c:forEach var="ap" items="${ap}">
-                                        <option value="${ap.id}">${ap.name}</option>
-                                    </c:forEach>
-                                    <option value="" disabled selected>Select an Attraction Package</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
                     <input type="checkbox" checked name="status" style="display:none"/>
                 </div> 
 
@@ -238,7 +222,7 @@
                             <td height="12.5%" class="path"></td>
                             <%for (int i = 1; i <= 9; i++) {%>
                             <td id="drop_zone<%=i%>" ondrop="drag_drop(event)" ondragover="return false" style="white-space: nowrap;overflow:hidden;text-overflow: ellipsis;text-align: center;font-size:50%;border-top:1px solid black;border-right:1px dotted grey;border-left: 1px dotted grey" valign="center"></td>
-                                <%}%>
+                            <%}%>
                             <td width="8.3%" style="border-left: 1px solid black"></td>
                         </tr>
                         <tr>
@@ -250,8 +234,8 @@
                         <tr>
                             <td class="path">&nbsp;</td>
                             <%for (int i = 1; i <= 9; i++) {%>
-                            <td id="drop_zone<%=i+9%>" ondrop="drag_drop(event)" ondragover="return false" style="white-space: nowrap;overflow:hidden;text-overflow: ellipsis;text-align: center;font-size:50%;border-right:1px dotted grey;border-left: 1px dotted grey" valign="center"></td>
-                                <%}%>
+                            <td id="drop_zone<%=i + 9%>" ondrop="drag_drop(event)" ondragover="return false" style="white-space: nowrap;overflow:hidden;text-overflow: ellipsis;text-align: center;font-size:50%;border-right:1px dotted grey;border-left: 1px dotted grey" valign="center"></td>
+                            <%}%>
                             <td rowspan="5" style="border-left:1px solid black">&nbsp;</td>
                         </tr>
                         <tr>
@@ -261,8 +245,8 @@
                         </tr>
                         <tr>
                             <%for (int i = 1; i <= 9; i++) {%>
-                            <td height="12.5%" id="drop_zone<%=i+18%>" ondrop="drag_drop(event)" ondragover="return false" style="white-space: nowrap;overflow:hidden;text-overflow: ellipsis;text-align: center;font-size:50%;border-right:1px dotted grey;border-left: 1px dotted grey" valign="center"></td>
-                                <%}%>
+                            <td height="12.5%" id="drop_zone<%=i + 18%>" ondrop="drag_drop(event)" ondragover="return false" style="white-space: nowrap;overflow:hidden;text-overflow: ellipsis;text-align: center;font-size:50%;border-right:1px dotted grey;border-left: 1px dotted grey" valign="center"></td>
+                            <%}%>
                             <td class="path"></td>
                         </tr>
                         <tr>
@@ -274,8 +258,8 @@
                         <tr>
                             <td height="12.5%" style="border-right:1px solid black"></td>
                             <%for (int i = 1; i <= 10; i++) {%>
-                            <td id="drop_zone<%=i+27%>" ondrop="drag_drop(event)" ondragover="return false" style="white-space: nowrap;overflow:hidden;text-overflow: ellipsis;text-align: center;font-size:50%;border-bottom:1px solid black;border-right:1px dotted grey;border-left: 1px dotted grey" valign="center"></td>
-                                <%}%>
+                            <td id="drop_zone<%=i + 27%>" ondrop="drag_drop(event)" ondragover="return false" style="white-space: nowrap;overflow:hidden;text-overflow: ellipsis;text-align: center;font-size:50%;border-bottom:1px solid black;border-right:1px dotted grey;border-left: 1px dotted grey" valign="center"></td>
+                            <%}%>
                         </tr>
                     </table>
                 </div>
@@ -506,150 +490,135 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h2 class="modal-title" style="color:#a57d89; font-family: Georgia">Edit Event Event:</h2>
             </div>
-            <div class="modal-body">
-                <h3 style="color:#a57d89; font-family: Georgia">Event Information</h3><br>
-                <table width="100%">
-                    <tr>
-                        <td colspan="5"><label>Type of Event: </label></td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">
-                            <select name="type" id="eventType" class="form-control">
-                                <c:forEach var="e" items="${events}">
-                                    <option value="${e.type}">${e.type}</option>
-                                </c:forEach>
-                                <option value="" disabled selected>-- Select an Event Type --</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
-                <table width="95%" align="center">
-                    <tr>
-                        <td colspan="3"></td>
-                        <td colspan="2" style="color:#a57d89; font-family: Georgia"><h3>Scheduling</h3></td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><label>Name: </label></td>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
-                                <input class="form-control" name="name" id="eventName" type="text" placeholder="Name of your Event" style="width:80%; display:inline-block;"/>
-                            </div>
-                        </td>
-                        <td style="color:white">________</td>
-                        <td><label>Start Date:</label></td>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                <input maxlength="10" class="form-control" name="startDate" id="eventStartDate" type="text" placeholder="Start Date of Event" style="width:100%; display:inline-block;"/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><label>Venue:</label></td>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-star"></i></span>
-                                <input class="form-control" name="venue" id="eventVenue" type="text" placeholder="Venue" style="width:80%; display:inline-block;"/>
-                            </div>
-                        </td>
-                        <td>&nbsp;</td>
-                        <td><label>End Date:</label></td>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                <input maxlength="10" class="form-control" name="endDate" id="eventEndDate" type="text" placeholder="End Date of Event" style="width:100%; display:inline-block;"/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><label>Address:</label></td>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                <input class="form-control" name="address" id="eventAddress" type="text" placeholder="Full Address Line" style="width:80%; display:inline-block;"/>
-                            </div>
-                        </td>
-                        <td>&nbsp;</td>
-                        <td><label>Starting Time:</label></td>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                                <input maxlength="5" class="form-control" name="startTime" id="eventStartTime" type="text" placeholder="Start Time of Event" style="width:100%; display:inline-block;"/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><label>Budget:</label></td>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-addon"> &#8377;&nbsp;</span>
-                                <input class="form-control" name="budget" id="eventBudget" type="text" placeholder="Budget for your Event" style="width:100%; display:inline-block;"/>
-                                <span class="input-group-addon">.00/-</span>
-                            </div>
-                        </td>
-                        <td>&nbsp;</td>
-                        <td><label>Ending Time:</label></td>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                                <input maxlength="5" class="form-control" name="endTime" id="eventEndTime" type="text" placeholder="End Time of Event" style="width:100%; display:inline-block;"/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><label>Estimated<br>Number<br> of Guests:</label></td>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-eye-open"></i></span>
-                                <input class="form-control" name="estGuests" id="eventEstGuests" type="text" placeholder="Estimated Number of Guests" style="width:80%; display:inline-block;"/>
-                            </div>
-                        </td>
-                        <td colspan="3">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">&nbsp;</td>
-                    </tr>
-                </table>
-                <table width="100%">
-                    <tr>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><label>Attractions:</label></td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">
-                            <select name="attractionPkgId" class="form-control" id="eventAttractionPkgId">
-                                <c:forEach var="ap" items="${ap}">
-                                    <option value="${ap.id}">${ap.name}</option>
-                                </c:forEach>
-                                <option value="" disabled selected>Select an Attraction Package</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
-            </div> 
-
-            <div class="modal-footer">
-                <button id="hideHost" type="button" class="btn" style="background-color:#89a57d;color:white" data-toggle="tooltip" title="Save">Update</button>
-                <button id="hideHost2" type="button" class="btn" style="background-color:#a57d89; color:white" data-toggle="tooltip" title="Cancel" data-dismiss="modal">Cancel</button>
-            </div>
+            <form method="post" action = "${pageContext.request.contextPath}/editEvent">
+                <input id="eventId" type="text" name="id" style="display:none"/>
+                <input id="eventHostId" type="text" name="hostId" style="display:none"/>
+                <div class="modal-body">
+                    <table width="100%">
+                        <tr>
+                            <td colspan="5"><label>Type of Event: </label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <select name="type" id="eventType" class="form-control">
+                                    <c:forEach var="e" items="${events}">
+                                        <option value="${e.type}">${e.type}</option>
+                                    </c:forEach>
+                                    <option value="" disabled selected>-- Select an Event Type --</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="95%" align="center">
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="2" style="color:#a57d89; font-family: Georgia"><h3>Scheduling</h3></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td><label>Name: </label></td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
+                                    <input class="form-control" name="name" id="eventName" type="text" placeholder="Name of your Event" style="width:80%; display:inline-block;"/>
+                                </div>
+                            </td>
+                            <td style="color:white">________</td>
+                            <td><label>Start Date:</label></td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    <input class="form-control" name="startDate" id="eventStartDate" type="date" placeholder="Start Date of Event" style="width:100%; display:inline-block;"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td><label>Venue:</label></td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-star"></i></span>
+                                    <input class="form-control" name="venue" id="eventVenue" type="text" placeholder="Venue" style="width:80%; display:inline-block;"/>
+                                </div>
+                            </td>
+                            <td>&nbsp;</td>
+                            <td><label>End Date:</label></td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    <input class="form-control" name="endDate" id="eventEndDate" type="date" placeholder="End Date of Event" style="width:100%; display:inline-block;"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td><label>Address:</label></td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                    <input class="form-control" name="address" id="eventAddress" type="text" placeholder="Full Address Line" style="width:80%; display:inline-block;"/>
+                                </div>
+                            </td>
+                            <td>&nbsp;</td>
+                            <td><label>Starting Time:</label></td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                    <input maxlength="5" class="form-control" name="startTime" id="eventStartTime" type="text" placeholder="Start Time of Event" style="width:100%; display:inline-block;"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td><label>Budget:</label></td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> &#8377;&nbsp;</span>
+                                    <input class="form-control" name="budget" id="eventBudget" type="text" placeholder="Budget for your Event" style="width:100%; display:inline-block;"/>
+                                    <span class="input-group-addon">.00/-</span>
+                                </div>
+                            </td>
+                            <td>&nbsp;</td>
+                            <td><label>Ending Time:</label></td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                    <input maxlength="5" class="form-control" name="endTime" id="eventEndTime" type="text" placeholder="End Time of Event" style="width:100%; display:inline-block;"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td><label>Estimated<br>Number<br> of Guests:</label></td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-eye-open"></i></span>
+                                    <input class="form-control" name="estGuests" id="eventEstGuests" type="text" placeholder="Estimated Number of Guests" style="width:80%; display:inline-block;"/>
+                                </div>
+                            </td>
+                            <td colspan="3">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">&nbsp;</td>
+                        </tr>
+                    </table>
+                </div> 
+                <input type="checkbox" name="status" checked style="display:none"/>
+                <div class="modal-footer">
+                    <button id="updateEventBtn" type="submit" class="btn" style="background-color:#89a57d;color:white" data-toggle="tooltip" title="Save">Update</button>
+                    <button id="cancelUpdateEventBtn" type="button" class="btn" style="background-color:#a57d89; color:white" data-toggle="tooltip" title="Cancel" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -713,8 +682,12 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn" style="background-color:#89a57d;color:white" data-toggle="tooltip" title="Delete">Yes</button>
-                <button type="button" class="btn" style="background-color:#a57d89; color:white" data-toggle="tooltip" title="Cancel" data-dismiss="modal">No</button>
+                <form method="post" action="${pageContext.request.contextPath}/deleteEvent">
+                    <input name="id" id="eventId" style="display:none"/>
+                    <input name="hostId" id="hostId" style="display:none"/>
+                    <button type="submit" class="btn" style="background-color:#89a57d;color:white" data-toggle="tooltip" title="Delete">Yes</button>
+                    <button type="button" class="btn" style="background-color:#a57d89; color:white" data-toggle="tooltip" title="Cancel" data-dismiss="modal">No</button>
+                </form>
             </div>
         </div>
     </div>

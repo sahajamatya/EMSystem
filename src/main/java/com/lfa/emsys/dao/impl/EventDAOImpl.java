@@ -43,12 +43,21 @@ public class EventDAOImpl implements EventDAO{
     
     @Override
     public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Event event = getById(id);
+        if(event!=null){
+            session = sessionFactory.openSession();
+            trans=session.beginTransaction();
+            session.delete(event);
+            trans.commit();
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Event getById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session= sessionFactory.openSession();
+        return (Event)session.get(Event.class, id);
     }
 
     @Override
